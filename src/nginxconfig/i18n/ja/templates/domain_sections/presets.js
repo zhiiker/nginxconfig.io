@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2022 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,14 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import { fromSep } from './language_pack_name';
-
-// Use webpack magic to only build chunks for lang/index.js, not subdirectories (e.g. lang/templates/index.js)
-export const languagePackContext = require.context('../i18n', true, /^\.\/[^/]+\/index\.js$/, 'lazy');
-
-// Webpack magic to get all the packs that are available
-export const availablePacks = Object.freeze(languagePackContext
-    .keys()
-    .map(pack => pack.match(/^\.\/([^/]+)\/index\.js$/))
-    .filter(pack => pack !== null)
-    .map(pack => fromSep(pack[1], '-')));
+export default {
+    presets: 'プリセット',
+    itLooksLikeYouCustomisedTheConfig:
+        'このドメインの設定をカスタマイズしているようです。新しいプリセットを選択すると、カスタマイズした設定の一部がリセットまたは変更される場合があります。',
+    frontend: 'フロントエンド',
+    nodeJs: 'Node.js',
+    singlePageApplication: 'シングルページアプリケーション(SPA)',
+};

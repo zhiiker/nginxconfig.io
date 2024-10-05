@@ -1,5 +1,5 @@
 <!--
-Copyright 2021 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -28,17 +28,18 @@ THE SOFTWARE.
     <div class="callout">
         <p>
             {{ $t('templates.callouts.droplet.lookingForAPlaceToDeploy') }}
-            <ExternalLink :text="$t('templates.callouts.droplet.tryOutDigitalOceansDroplet')"
-                          link="https://marketplace.digitalocean.com/apps/lemp"
-                          @click.native="linkClickEvent"
+            <ExternalLink
+                :text="$t('templates.callouts.droplet.tryOutDigitalOceansDroplet')"
+                link="https://marketplace.digitalocean.com/apps/lemp"
+                @click.native="linkClickEvent"
             ></ExternalLink>
         </p>
     </div>
 </template>
 
 <script>
-    import ExternalLink from 'do-vue/src/templates/external_link';
-    import analytics from '../../util/analytics';
+    import ExternalLink from 'do-vue/src/templates/external_link.vue';
+    import analytics from '../../util/analytics.js';
 
     export default {
         name: 'DropletCallout',

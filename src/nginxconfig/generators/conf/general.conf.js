@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import { gzipTypes, extensions } from '../../util/types_extensions';
+import { gzipTypes, extensions } from '../../util/types_extensions.js';
 
 export default (domains, global) => {
     const config = {};
@@ -33,16 +33,26 @@ export default (domains, global) => {
     config['location = /favicon.ico'] = {
         log_not_found: 'off',
     };
-    if (global.logging.accessLog.computed) config['location = /favicon.ico'].access_log = 'off';
 
     config['# robots.txt'] = '';
     config['location = /robots.txt'] = {
         log_not_found: 'off',
     };
-    if (global.logging.accessLog.computed) config['location = /robots.txt'].access_log = 'off';
 
-    if (domains.every(d => d.routing.root.computed)) {
-        if (global.performance.assetsExpiration.computed === global.performance.mediaExpiration.computed) {
+    if (global.performance.disableHtmlCaching.computed) {
+        // Disable HTML caching for changes take effect in time
+        config['# Disable HTML caching'] = '';
+        const loc = `location ~* \\.(?:${extensions.html})$`;
+        config[loc] = {
+            add_header: 'Cache-Control "no-cache"',
+        };
+    }
+
+    if (domains.every((d) => d.routing.root.computed)) {
+        if (
+            global.performance.assetsExpiration.computed ===
+            global.performance.mediaExpiration.computed
+        ) {
             if (global.performance.assetsExpiration.computed) {
                 // Assets & media combined
                 config['# assets, media'] = '';
@@ -50,7 +60,6 @@ export default (domains, global) => {
                 config[loc] = {
                     expires: global.performance.assetsExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
         } else {
             // Assets & media separately
@@ -60,7 +69,6 @@ export default (domains, global) => {
                 config[loc] = {
                     expires: global.performance.assetsExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
 
             if (global.performance.mediaExpiration.computed) {
@@ -69,11 +77,13 @@ export default (domains, global) => {
                 config[loc] = {
                     expires: global.performance.mediaExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
         }
 
-        if (global.performance.svgExpiration.computed === global.performance.fontsExpiration.computed) {
+        if (
+            global.performance.svgExpiration.computed ===
+            global.performance.fontsExpiration.computed
+        ) {
             if (global.performance.svgExpiration.computed) {
                 // SVG & fonts combined
                 config['# svg, fonts'] = '';
@@ -82,7 +92,6 @@ export default (domains, global) => {
                     add_header: 'Access-Control-Allow-Origin "*"',
                     expires: global.performance.svgExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
         } else {
             // SVG & fonts separately
@@ -93,7 +102,6 @@ export default (domains, global) => {
                     add_header: 'Access-Control-Allow-Origin "*"',
                     expires: global.performance.svgExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
 
             if (global.performance.fontsExpiration.computed) {
@@ -103,7 +111,6 @@ export default (domains, global) => {
                     add_header: 'Access-Control-Allow-Origin "*"',
                     expires: global.performance.fontsExpiration.computed,
                 };
-                if (global.logging.accessLog.computed) config[loc].access_log = 'off';
             }
         }
     }

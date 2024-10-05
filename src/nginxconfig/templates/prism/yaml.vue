@@ -1,5 +1,5 @@
 <!--
-Copyright 2021 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -25,14 +25,18 @@ THE SOFTWARE.
 -->
 
 <template>
-    <div :class="`column ${half ? 'is-half' : 'is-full'} is-full-mobile is-full-tablet`" @copied="copied">
+    <div
+        :class="`column ${half ? 'is-half' : 'is-full'} is-full-mobile is-full-tablet`"
+        @copied="copied"
+    >
         <h3 v-html="name"></h3>
         <pre><code class="language-yaml" v-html="conf"></code></pre>
     </div>
 </template>
 
 <script>
-    import 'prismjs/components/prism-yaml';
+    import 'prismjs/components/prism-yaml.js';
+    import { info } from '../../util/log.js';
 
     export default {
         name: 'YamlPrism',
@@ -42,7 +46,7 @@ THE SOFTWARE.
             half: Boolean,
         },
         mounted() {
-            console.info(`Highlighting ${this.$props.name}...`);
+            info(`Highlighting ${this.$props.name}...`);
             window.Prism.highlightAllUnder(this.$el);
         },
         methods: {

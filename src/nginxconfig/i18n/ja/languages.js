@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,7 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-export const defaultPack = 'en';
-
-export { default as defaultPackData } from '../i18n/en';
+export default {
+    en: '英語',
+    es: 'スペイン語',
+    zhCN: '中国語 (簡体字)',
+    zhTW: '中国語 (繁体字)',
+    ptBR: 'ポルトガル語 (ブラジル)',
+    fr: 'フランス語',
+    ru: 'ロシア語',
+    pl: 'ポーランド語',
+    de: 'ドイツ語',
+    ja: '日本語',
+    fa: 'ペルシア語',
+};

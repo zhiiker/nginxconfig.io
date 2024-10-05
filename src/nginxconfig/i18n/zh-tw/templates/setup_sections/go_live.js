@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,10 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import common from '../../common';
+import common from '../../common.js';
 
 export default {
-    letsGoLive: '讓我們開始吧！',
-    reloadNginxToLoadInYourNewConfiguration: `重新加載${common.nginx}以載入新的配置:`,
+    letsGoLive: '好戲上場！',
+    reloadNginxToLoadInYourNewConfiguration: `重新載入 ${common.nginx} 以套用新設定：`,
     goLive: '上線！',
 };

@@ -1,5 +1,5 @@
 <!--
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -26,7 +26,10 @@ THE SOFTWARE.
 
 <template>
     <div>
-        <div v-if="!reverseProxyEnabled" class="field is-horizontal is-aligned-top">
+        <div
+            v-if="!reverseProxyEnabled"
+            class="field is-horizontal is-aligned-top"
+        >
             <div class="field-label">
                 <label class="label">{{ $t('common.reverseProxy') }}</label>
             </div>
@@ -36,10 +39,20 @@ THE SOFTWARE.
                         <label class="text">
                             {{ $t('templates.domainSections.reverseProxy.reverseProxyIsDisabled') }}
                             <template v-if="$parent.$props.data.php.php.computed">
-                                <br />{{ $t('templates.domainSections.reverseProxy.reverseProxyCannotBeEnabledWithPhp') }}
+                                <br />
+                                {{
+                                    $t(
+                                        'templates.domainSections.reverseProxy.reverseProxyCannotBeEnabledWithPhp',
+                                    )
+                                }}
                             </template>
                             <template v-if="$parent.$props.data.python.python.computed">
-                                <br />{{ $t('templates.domainSections.reverseProxy.reverseProxyCannotBeEnabledWithPython') }}
+                                <br />
+                                {{
+                                    $t(
+                                        'templates.domainSections.reverseProxy.reverseProxyCannotBeEnabledWithPython',
+                                    )
+                                }}
                             </template>
                         </label>
                     </div>
@@ -47,7 +60,10 @@ THE SOFTWARE.
             </div>
         </div>
 
-        <div v-else class="field is-horizontal">
+        <div
+            v-else
+            class="field is-horizontal"
+        >
             <div class="field-label">
                 <label class="label">{{ $t('common.reverseProxy') }}</label>
             </div>
@@ -55,8 +71,10 @@ THE SOFTWARE.
                 <div :class="`field${reverseProxyChanged ? ' is-changed' : ''}`">
                     <div class="control">
                         <div class="checkbox">
-                            <PrettyCheck v-model="reverseProxy" class="p-default p-curve p-fill p-icon">
-                                <i slot="extra" class="icon fas fa-check"></i>
+                            <PrettyCheck
+                                v-model="reverseProxy"
+                                class="p-default p-curve p-fill p-icon"
+                            >
                                 {{ $t('templates.domainSections.reverseProxy.enableReverseProxy') }}
                             </PrettyCheck>
                         </div>
@@ -65,34 +83,65 @@ THE SOFTWARE.
             </div>
         </div>
 
-        <div v-if="pathEnabled" class="field is-horizontal">
+        <div
+            v-if="pathEnabled"
+            class="field is-horizontal"
+        >
             <div class="field-label">
                 <label class="label">{{ $t('common.path') }}</label>
             </div>
             <div class="field-body">
                 <div :class="`field${pathChanged ? ' is-changed' : ''}`">
                     <div class="control">
-                        <input v-model="path"
-                               class="input"
-                               type="text"
-                               :placeholder="$props.data.path.default"
+                        <input
+                            v-model="path"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.path.default"
                         />
                     </div>
                 </div>
             </div>
         </div>
 
-        <div v-if="proxyPassEnabled" class="field is-horizontal">
+        <div
+            v-if="proxyPassEnabled"
+            class="field is-horizontal"
+        >
             <div class="field-label">
                 <label class="label">proxy_pass</label>
             </div>
             <div class="field-body">
                 <div :class="`field${proxyPassChanged ? ' is-changed' : ''}`">
                     <div class="control">
-                        <input v-model="proxyPass"
-                               class="input"
-                               type="text"
-                               :placeholder="$props.data.proxyPass.default"
+                        <input
+                            v-model="proxyPass"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.proxyPass.default"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            v-if="proxyHostHeaderEnabled"
+            class="field is-horizontal"
+        >
+            <div class="field-label">
+                <label class="label">
+                    {{ $t('templates.domainSections.reverseProxy.proxyHostHeader') }}
+                </label>
+            </div>
+            <div class="field-body">
+                <div :class="`field${proxyHostHeaderChanged ? ' is-changed' : ''}`">
+                    <div class="control">
+                        <input
+                            v-model="proxyHostHeader"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.proxyHostHeader.default"
                         />
                     </div>
                 </div>
@@ -102,9 +151,9 @@ THE SOFTWARE.
 </template>
 
 <script>
-    import PrettyCheck from 'pretty-checkbox-vue/check';
-    import delegatedFromDefaults from '../../util/delegated_from_defaults';
-    import computedFromDefaults from '../../util/computed_from_defaults';
+    import delegatedFromDefaults from '../../util/delegated_from_defaults.js';
+    import computedFromDefaults from '../../util/computed_from_defaults.js';
+    import PrettyCheck from '../inputs/checkbox.vue';
 
     const defaults = {
         reverseProxy: {
@@ -119,20 +168,24 @@ THE SOFTWARE.
             default: 'http://127.0.0.1:3000',
             enabled: false,
         },
+        proxyHostHeader: {
+            default: '$host',
+            enabled: false,
+        },
     };
 
     export default {
-        name: 'DomainReverseProxy',                                 // Component name
-        display: 'common.reverseProxy',                             // Display name for tab (i18n key)
-        key: 'reverseProxy',                                        // Key for data in parent
-        delegated: delegatedFromDefaults(defaults),                 // Data the parent will present here
+        name: 'DomainReverseProxy', // Component name
+        display: 'common.reverseProxy', // Display name for tab (i18n key)
+        key: 'reverseProxy', // Key for data in parent
+        delegated: delegatedFromDefaults(defaults), // Data the parent will present here
         components: {
             PrettyCheck,
         },
         props: {
-            data: Object,                                           // Data delegated back to us from parent
+            data: Object, // Data delegated back to us from parent
         },
-        computed: computedFromDefaults(defaults, 'reverseProxy'),   // Getters & setters for the delegated data
+        computed: computedFromDefaults(defaults, 'reverseProxy'), // Getters & setters for the delegated data
         watch: {
             // If the PHP or Python is enabled, the Reverse proxy will be forced off
             '$parent.$props.data': {
@@ -143,7 +196,8 @@ THE SOFTWARE.
                         this.$props.data.reverseProxy.computed = false;
                     } else {
                         this.$props.data.reverseProxy.enabled = true;
-                        this.$props.data.reverseProxy.computed = this.$props.data.reverseProxy.value;
+                        this.$props.data.reverseProxy.computed =
+                            this.$props.data.reverseProxy.value;
                     }
                 },
                 deep: true,
@@ -156,11 +210,16 @@ THE SOFTWARE.
                         this.$props.data.path.computed = this.$props.data.path.value;
                         this.$props.data.proxyPass.enabled = true;
                         this.$props.data.proxyPass.computed = this.$props.data.proxyPass.value;
+                        this.$props.data.proxyHostHeader.enabled = true;
+                        this.$props.data.proxyHostHeader.computed =
+                            this.$props.data.proxyHostHeader.value;
                     } else {
                         this.$props.data.path.enabled = false;
                         this.$props.data.path.computed = '';
                         this.$props.data.proxyPass.enabled = false;
                         this.$props.data.proxyPass.computed = '';
+                        this.$props.data.proxyHostHeader.enabled = false;
+                        this.$props.data.proxyHostHeader.computed = '';
                     }
                 },
                 deep: true,

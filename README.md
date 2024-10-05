@@ -83,7 +83,7 @@ routing, reverse proxy, www/non-www redirect, CDN, PHP (TCP/socket, WordPress, D
 
 4. Open the development site **[localhost:8080](http://localhost:8080)**
 
-5. Lint your code *(eslint & sass-lint)*
+5. Lint your code *(eslint & stylelint)*
     ```sh
     npm test
     ```
@@ -129,6 +129,6 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2020 [DigitalOcean, Inc &lt;contact@digitalocean.com&gt; (https://www.digitalocean.com)](https://www.digitalocean.com).
+Copyright © 2020 [DigitalOcean, Inc](https://www.digitalocean.com) &lt;contact@digitalocean.com&gt; (https://www.digitalocean.com).
 <br />
 This project is licensed under the [MIT](https://github.com/digitalocean/nginxconfig.io/blob/master/LICENSE) license.

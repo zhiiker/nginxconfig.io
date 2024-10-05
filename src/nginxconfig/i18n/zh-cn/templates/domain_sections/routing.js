@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,11 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import common from '../../common';
+import common from '../../common.js';
 
 export default {
-    fallbackRouting: '回调路由',
-    fallbackRoutingPhpPath: `回调路由${common.php}路径`,
+    fallbackRouting: '后备路由',
+    fallbackRoutingPhpPath: `后备路由${common.php}路径`,
     legacyPhpRouting: `传统${common.php}路由`,
     enableLegacyRouting: `${common.enable}传统路由`,
     routing: '路由设置',

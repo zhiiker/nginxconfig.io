@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,11 +24,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-export const toSep = (pack, sep) => pack
-    .match(/^([a-z]+)([A-Z]*)$/)
-    .slice(1)
-    .map(x => x.toLowerCase())
-    .filter(x => !!x)
-    .join(sep);
+import common from '../common.js';
 
-export const fromSep = (pack, sep) => pack.split(sep, 2)[0].toLowerCase() + (pack.split(sep, 2)[1] || '').toUpperCase();
+export default {
+    title: `${common.nginx}پیکربندی`,
+    description: `ساده‌ترین راه برای پیکربندی یک سرور ${common.nginx} کارآمد، امن و پایدار.`,
+    singleColumnMode: 'حالت ستون تکی',
+    splitColumnMode: 'حالت کناره به کناره',
+    perWebsiteConfig: 'پیکربندی برای هر وب‌سایت',
+    addSite: 'افزودن وب‌سایت',
+    globalConfig: 'پیکربندی جهانی',
+    setup: 'راه‌اندازی',
+    configFiles: 'پرونده‌های پیکربندی',
+    copied: 'کپی شد',
+};

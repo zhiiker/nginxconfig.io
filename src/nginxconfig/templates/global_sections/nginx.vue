@@ -1,5 +1,5 @@
 <!--
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -28,15 +28,18 @@ THE SOFTWARE.
     <div>
         <div class="field is-horizontal">
             <div class="field-label">
-                <label class="label">{{ $t('templates.globalSections.nginx.nginxConfigDirectory') }}</label>
+                <label class="label">
+                    {{ $t('templates.globalSections.nginx.nginxConfigDirectory') }}
+                </label>
             </div>
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${nginxConfigDirectoryChanged ? ' is-changed' : ''}`">
-                        <input v-model="nginxConfigDirectory"
-                               class="input"
-                               type="text"
-                               :placeholder="$props.data.nginxConfigDirectory.default"
+                        <input
+                            v-model="nginxConfigDirectory"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.nginxConfigDirectory.default"
                         />
                     </div>
                 </div>
@@ -50,9 +53,10 @@ THE SOFTWARE.
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${workerProcessesChanged ? ' is-changed' : ''}`">
-                        <VueSelect v-model="workerProcesses"
-                                   :options="$props.data.workerProcesses.options"
-                                   :clearable="false"
+                        <VueSelect
+                            v-model="workerProcesses"
+                            :options="$props.data.workerProcesses.options"
+                            :clearable="false"
                         ></VueSelect>
                     </div>
                 </div>
@@ -66,10 +70,11 @@ THE SOFTWARE.
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${userChanged ? ' is-changed' : ''}`">
-                        <input v-model="user"
-                               class="input"
-                               type="text"
-                               :placeholder="$props.data.user.default"
+                        <input
+                            v-model="user"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.user.default"
                         />
                     </div>
                 </div>
@@ -83,10 +88,11 @@ THE SOFTWARE.
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${pidChanged ? ' is-changed' : ''}`">
-                        <input v-model="pid"
-                               class="input"
-                               type="text"
-                               :placeholder="$props.data.pid.default"
+                        <input
+                            v-model="pid"
+                            class="input"
+                            type="text"
+                            :placeholder="$props.data.pid.default"
                         />
                     </div>
                 </div>
@@ -99,13 +105,18 @@ THE SOFTWARE.
             </div>
             <div class="field-body">
                 <div class="field has-addons">
-                    <div :class="`control is-expanded${clientMaxBodySizeChanged ? ' is-changed' : ''}`">
-                        <input v-model.number="clientMaxBodySize"
-                               class="input"
-                               type="number"
-                               min="0"
-                               step="1"
-                               :placeholder="$props.data.clientMaxBodySize.default"
+                    <div
+                        :class="`control is-expanded${
+                            clientMaxBodySizeChanged ? ' is-changed' : ''
+                        }`"
+                    >
+                        <input
+                            v-model.number="clientMaxBodySize"
+                            class="input"
+                            type="number"
+                            min="0"
+                            step="1"
+                            :placeholder="$props.data.clientMaxBodySize.default"
                         />
                     </div>
                     <div class="control">
@@ -124,9 +135,10 @@ THE SOFTWARE.
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${typesHashMaxSizeChanged ? ' is-changed' : ''}`">
-                        <VueSelect v-model="typesHashMaxSize"
-                                   :options="$props.data.typesHashMaxSize.options"
-                                   :clearable="false"
+                        <VueSelect
+                            v-model="typesHashMaxSize"
+                            :options="$props.data.typesHashMaxSize.options"
+                            :clearable="false"
                         ></VueSelect>
                     </div>
                 </div>
@@ -140,9 +152,10 @@ THE SOFTWARE.
             <div class="field-body">
                 <div class="field">
                     <div :class="`control${typesHashBucketSizeChanged ? ' is-changed' : ''}`">
-                        <VueSelect v-model="typesHashBucketSize"
-                                   :options="$props.data.typesHashBucketSize.options"
-                                   :clearable="false"
+                        <VueSelect
+                            v-model="typesHashBucketSize"
+                            :options="$props.data.typesHashBucketSize.options"
+                            :clearable="false"
                         ></VueSelect>
                     </div>
                 </div>
@@ -153,8 +166,8 @@ THE SOFTWARE.
 
 <script>
     import VueSelect from 'vue-select';
-    import delegatedFromDefaults from '../../util/delegated_from_defaults';
-    import computedFromDefaults from '../../util/computed_from_defaults';
+    import delegatedFromDefaults from '../../util/delegated_from_defaults.js';
+    import computedFromDefaults from '../../util/computed_from_defaults.js';
 
     const defaults = {
         nginxConfigDirectory: {
@@ -164,10 +177,7 @@ THE SOFTWARE.
         },
         workerProcesses: {
             default: 'auto',
-            options: [
-                'auto',
-                ...Array.from({ length: 16 }, (_, i) => i + 1),
-            ],
+            options: ['auto', ...Array.from({ length: 16 }, (_, i) => i + 1)],
             enabled: true,
         },
         user: {
@@ -195,17 +205,17 @@ THE SOFTWARE.
     };
 
     export default {
-        name: 'GlobalNGINX',                                // Component name
-        display: 'common.nginx',                            // Display name for tab (i18n key)
-        key: 'nginx',                                       // Key for data in parent
-        delegated: delegatedFromDefaults(defaults),         // Data the parent will present here
+        name: 'GlobalNGINX', // Component name
+        display: 'common.nginx', // Display name for tab (i18n key)
+        key: 'nginx', // Key for data in parent
+        delegated: delegatedFromDefaults(defaults), // Data the parent will present here
         components: {
             VueSelect,
         },
         props: {
-            data: Object,                                   // Data delegated back to us from parent
+            data: Object, // Data delegated back to us from parent
         },
-        computed: computedFromDefaults(defaults, 'nginx'),  // Getters & setters for the delegated data
+        computed: computedFromDefaults(defaults, 'nginx'), // Getters & setters for the delegated data
         watch: {
             // Clean nginx directory of trailing slashes
             '$props.data.nginxConfigDirectory': {
@@ -222,8 +232,7 @@ THE SOFTWARE.
                 handler(data) {
                     // This might cause recursion, but seems not to
                     if (data.enabled)
-                        if (!data.options.includes(data.computed))
-                            data.computed = data.default;
+                        if (!data.options.includes(data.computed)) data.computed = data.default;
                 },
                 deep: true,
             },
@@ -231,9 +240,7 @@ THE SOFTWARE.
             '$props.data.clientMaxBodySize': {
                 handler(data) {
                     // This might cause recursion, but seems not to
-                    if (data.enabled)
-                        if (data.computed < 0)
-                            data.computed = 0;
+                    if (data.enabled) if (data.computed < 0) data.computed = 0;
                 },
                 deep: true,
             },
@@ -242,8 +249,7 @@ THE SOFTWARE.
                 handler(data) {
                     // This might cause recursion, but seems not to
                     if (data.enabled)
-                        if (!data.options.includes(data.computed))
-                            data.computed = data.default;
+                        if (!data.options.includes(data.computed)) data.computed = data.default;
                 },
                 deep: true,
             },
@@ -252,8 +258,7 @@ THE SOFTWARE.
                 handler(data) {
                     // This might cause recursion, but seems not to
                     if (data.enabled)
-                        if (!data.options.includes(data.computed))
-                            data.computed = data.default;
+                        if (!data.options.includes(data.computed)) data.computed = data.default;
                 },
                 deep: true,
             },

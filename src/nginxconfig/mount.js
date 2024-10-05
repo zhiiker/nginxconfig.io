@@ -1,5 +1,5 @@
 /*
-Copyright 2021 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -26,13 +26,15 @@ THE SOFTWARE.
 
 // Load in the app
 import './scss/style.scss';
-import Vue from 'vue';
-import './util/prism_bundle';
-import { i18n } from './i18n/setup';
-import App from './templates/app';
+import 'vue-select/dist/vue-select.css';
+import { createApp } from 'vue';
+import './util/prism_bundle.js';
+import { getI18n } from './i18n/setup.js';
+import App from './templates/app.vue';
 
-// Run the app
-new Vue({
-    i18n,
-    render: h => h(App),
-}).$mount('#app');
+// Load the i18n languages and run the app
+getI18n().then((i18n) => {
+    const app = createApp(App);
+    app.use(i18n);
+    app.mount('#app');
+});

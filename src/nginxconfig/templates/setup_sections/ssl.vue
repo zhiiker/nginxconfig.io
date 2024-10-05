@@ -1,5 +1,5 @@
 <!--
-Copyright 2021 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -29,37 +29,59 @@ THE SOFTWARE.
         <ol v-if="diffieHellmanValue || letsEncryptActive">
             <li v-if="diffieHellmanValue">
                 <p>
-                    <span v-html="$t('templates.setupSections.ssl.generateDiffieHellmanKeysByRunningThisCommandOnYourServer')"></span>
+                    <span
+                        v-html="
+                            $t(
+                                'templates.setupSections.ssl.generateDiffieHellmanKeysByRunningThisCommandOnYourServer',
+                            )
+                        "
+                    ></span>
                     <br />
-                    <BashPrism :key="`${$props.data.global.nginx.nginxConfigDirectory.computed}-${diffieHellmanValue}`"
-                               :cmd="`openssl dhparam -out ${$props.data.global.nginx.nginxConfigDirectory.computed}/dhparam.pem ${diffieHellmanValue}`"
-                               @copied="codeCopiedEvent('Generate diffie-hellman keys')"
+                    <BashPrism
+                        :key="`${$props.data.global.nginx.nginxConfigDirectory.computed}-${diffieHellmanValue}`"
+                        :cmd="`openssl dhparam -out ${$props.data.global.nginx.nginxConfigDirectory.computed}/dhparam.pem ${diffieHellmanValue}`"
+                        @copied="codeCopiedEvent('Generate diffie-hellman keys')"
                     ></BashPrism>
                 </p>
             </li>
 
             <li v-if="letsEncryptActive">
                 <p>
-                    <span v-html="$t('templates.setupSections.ssl.createACommonAcmeChallengeDirectoryForLetsEncrypt')"></span>
+                    <span
+                        v-html="
+                            $t(
+                                'templates.setupSections.ssl.createACommonAcmeChallengeDirectoryForLetsEncrypt',
+                            )
+                        "
+                    ></span>
                     <br />
-                    <BashPrism :key="letsEncryptDir"
-                               :cmd="`mkdir -p ${letsEncryptDir}`"
-                               @copied="codeCopiedEvent('Create let\'s encrypt directory')"
+                    <BashPrism
+                        :key="letsEncryptDir"
+                        :cmd="`mkdir -p ${letsEncryptDir}`"
+                        @copied="codeCopiedEvent('Create let\'s encrypt directory')"
                     ></BashPrism>
-                    <BashPrism :key="`${nginxUser}-${letsEncryptDir}`"
-                               :cmd="`chown ${nginxUser} ${letsEncryptDir}`"
-                               @copied="codeCopiedEvent('Set let\'s encrypt directory ownership')"
+                    <BashPrism
+                        :key="`${nginxUser}-${letsEncryptDir}`"
+                        :cmd="`chown ${nginxUser} ${letsEncryptDir}`"
+                        @copied="codeCopiedEvent('Set let\'s encrypt directory ownership')"
                     ></BashPrism>
                 </p>
             </li>
         </ol>
 
-        <div v-else class="field is-horizontal">
+        <div
+            v-else
+            class="field is-horizontal"
+        >
             <div class="field-body">
                 <div class="field">
                     <div class="control">
                         <label class="text">
-                            {{ $t('templates.setupSections.ssl.noAdditionalStepsAreNeededToSetUpSslForNginx') }}
+                            {{
+                                $t(
+                                    'templates.setupSections.ssl.noAdditionalStepsAreNeededToSetUpSslForNginx',
+                                )
+                            }}
                         </label>
                     </div>
                 </div>
@@ -69,8 +91,8 @@ THE SOFTWARE.
 </template>
 
 <script>
-    import BashPrism from '../prism/bash';
-    import analytics from '../../util/analytics';
+    import BashPrism from '../prism/bash.vue';
+    import analytics from '../../util/analytics.js';
 
     export default {
         name: 'SetupSSL',
@@ -91,13 +113,13 @@ THE SOFTWARE.
             },
             diffieHellmanValue() {
                 switch (this.$props.data.global.https.sslProfile.computed) {
-                case 'intermediate':
-                    return 2048;
-                case 'old':
-                    return 1024;
-                case 'modern':
-                default:
-                    return 0;
+                    case 'intermediate':
+                        return 2048;
+                    case 'old':
+                        return 1024;
+                    case 'modern':
+                    default:
+                        return 0;
                 }
             },
             letsEncryptActive() {

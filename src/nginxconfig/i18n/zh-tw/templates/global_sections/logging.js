@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2024 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -24,12 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import common from '../../common';
+import common from '../../common.js';
 
 export default {
-    enableFileNotFoundErrorLogging: `${common.enable}“檔案未找到”錯誤日誌：`,
+    enableFileNotFoundErrorLogging: `${common.enable}｢找不到檔案｣錯誤日誌：`,
     logformat: 'log_format',
-    enableCloudflare: '將Cloudflare請求頭部添加到預設日誌格式',
+    level: 'logging level', // TODO: translate
+    enableCloudflare: '將 Cloudflare 請求標頭加入預設日誌格式',
     cfRay: 'CF-Ray',
     cfConnectingIp: 'CF-Connecting-IP',
     xForwardedFor: 'X-Forwarded-For',

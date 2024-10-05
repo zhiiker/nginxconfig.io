@@ -1,5 +1,5 @@
 /*
-Copyright 2021 DigitalOcean
+Copyright 2022 DigitalOcean
 
 This code is licensed under the MIT License.
 You may obtain a copy of the License at
@@ -33,7 +33,7 @@ THE SOFTWARE.
 
   &.floating {
     bottom: 0;
-    box-shadow: inset 0 0 0 $border-size $border-color;
+    box-shadow: inset 0 0 0 $border-size $border;
     max-width: calc(100% - 1rem);
     position: fixed;
     right: 0;
@@ -42,8 +42,7 @@ THE SOFTWARE.
 
     .close {
       display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
+      flex-flow: row nowrap;
       margin: 0 0 1.25rem;
 
       p {
